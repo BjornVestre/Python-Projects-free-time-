@@ -6,16 +6,22 @@ choices = ('r', 'p', 's')
 player_score = 0
 computer_score = 0
 
-while True:
-    user_choice = input("Choose rock, paper or scissor (r/p/s) :").lower()
-    if user_choice not in choices:
-        print("please enter r, p or s")
-        continue
+def get_user_choice():
+    while True:
+        user_choice = input("Choose rock, paper or scissor (r/p/s) :").lower()
+        if user_choice in choices:
+            return user_choice
+        else:
+            print('Please enter a valid choice')
 
-    computer_choice = random.choice(choices)
-
+def display_choices(user_choice, computer_choice):
     print(f'You chose {emojis[user_choice]}')
     print(f'Computer chose {emojis[computer_choice]}')
+
+
+
+def determine_winner(user_choice, computer_choice):
+    global player_score, computer_score
 
     if user_choice == computer_choice:
         print('tie')
@@ -31,8 +37,23 @@ while True:
 
     print(f"SCORE = You: {player_score} | Computer Score : {computer_score}")
 
+def play_game():
 
-    should_continue = input('Continue? (y/n): ').lower()
-    if should_continue == 'n':
-      break
+    while True:
+        user_choice = get_user_choice()
 
+        computer_choice = random.choice(choices)
+
+        display_choices(user_choice, computer_choice)
+
+        determine_winner(user_choice, computer_choice)
+
+        should_continue = input('Continue? (y/n): ').lower()
+        if should_continue == 'y':
+            continue
+        if should_continue == 'n':
+          break
+        else:
+            print('Please enter y or n')
+
+play_game()
